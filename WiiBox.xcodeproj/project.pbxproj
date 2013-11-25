@@ -13,6 +13,9 @@
 		B306475817F3DA9700A2C488 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B306475717F3DA9700A2C488 /* Images.xcassets */; };
 		B30866E717E55A7D0051BBDE /* WeiboModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B30866E617E55A7D0051BBDE /* WeiboModel.m */; };
 		B30866EA17E55D5B0051BBDE /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B30866E917E55D5B0051BBDE /* UserModel.m */; };
+		B30DE07018439AAC005CFAD4 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B30DE06E18439AAC005CFAD4 /* LocationViewController.m */; };
+		B30DE07118439AAC005CFAD4 /* LocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B30DE06F18439AAC005CFAD4 /* LocationViewController.xib */; };
+		B30DE0731843A0BE005CFAD4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30DE0721843A0BE005CFAD4 /* CoreLocation.framework */; };
 		B3190D4E17FAEC2E00F75D57 /* UserInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3190D4D17FAEC2E00F75D57 /* UserInfoView.xib */; };
 		B3190D5117FAEC3A00F75D57 /* UserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3190D5017FAEC3A00F75D57 /* UserInfoView.m */; };
 		B3190D5417FAF08500F75D57 /* UserInfoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B3190D5317FAF08500F75D57 /* UserInfoButton.m */; };
@@ -592,6 +595,10 @@
 		B30866E617E55A7D0051BBDE /* WeiboModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeiboModel.m; sourceTree = "<group>"; };
 		B30866E817E55D5B0051BBDE /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		B30866E917E55D5B0051BBDE /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		B30DE06D18439AAC005CFAD4 /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
+		B30DE06E18439AAC005CFAD4 /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
+		B30DE06F18439AAC005CFAD4 /* LocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationViewController.xib; sourceTree = "<group>"; };
+		B30DE0721843A0BE005CFAD4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B3190D4D17FAEC2E00F75D57 /* UserInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoView.xib; sourceTree = "<group>"; };
 		B3190D4F17FAEC3A00F75D57 /* UserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoView.h; sourceTree = "<group>"; };
 		B3190D5017FAEC3A00F75D57 /* UserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoView.m; sourceTree = "<group>"; };
@@ -1235,6 +1242,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B30DE0731843A0BE005CFAD4 /* CoreLocation.framework in Frameworks */,
 				B32825E517F14654002E2CEF /* AudioToolbox.framework in Frameworks */,
 				B3A7689C17E7FCC000F4A589 /* libicucore.dylib in Frameworks */,
 				B3B5998C17DF55260095BD51 /* CoreText.framework in Frameworks */,
@@ -1455,6 +1463,9 @@
 				B3584FCC18069F7600D3EFB8 /* NewWeiboViewController.h */,
 				B3584FCD18069F7600D3EFB8 /* NewWeiboViewController.m */,
 				B3584FCE18069F7600D3EFB8 /* NewWeiboViewController.xib */,
+				B30DE06D18439AAC005CFAD4 /* LocationViewController.h */,
+				B30DE06E18439AAC005CFAD4 /* LocationViewController.m */,
+				B30DE06F18439AAC005CFAD4 /* LocationViewController.xib */,
 				B3B66CF7180D7FF0006C84F4 /* ImageViewController.h */,
 				B3B66CF8180D7FF0006C84F4 /* ImageViewController.m */,
 				B3B66CF9180D7FF0006C84F4 /* ImageViewController.xib */,
@@ -1934,6 +1945,7 @@
 		B3B5993D17DF4D630095BD51 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B30DE0721843A0BE005CFAD4 /* CoreLocation.framework */,
 				B32825E417F14654002E2CEF /* AudioToolbox.framework */,
 				B3A7689B17E7FCC000F4A589 /* libicucore.dylib */,
 				B3B5998B17DF55260095BD51 /* CoreText.framework */,
@@ -2369,6 +2381,7 @@
 				B3584F3418069DE500D3EFB8 /* 095.png in Resources */,
 				B3584FC318069DE500D3EFB8 /* userinfo_header_separator.png in Resources */,
 				B3584E2018069DE500D3EFB8 /* 002@2x.png in Resources */,
+				B30DE07118439AAC005CFAD4 /* LocationViewController.xib in Resources */,
 				B3584F2618069DE500D3EFB8 /* 090@2x.png in Resources */,
 				B3584F5418069DE500D3EFB8 /* emoticon_keyboard_magnifier@2x.png in Resources */,
 				B3584E9C18069DE500D3EFB8 /* 044@2x.png in Resources */,
@@ -2711,6 +2724,7 @@
 				B3584FCF18069F7600D3EFB8 /* NewWeiboViewController.m in Sources */,
 				B362619017E3112200D8B421 /* ThemeButton.m in Sources */,
 				B362619417E349A800D8B421 /* ThemeViewController.m in Sources */,
+				B30DE07018439AAC005CFAD4 /* LocationViewController.m in Sources */,
 				B3201C7F17F8667100587CF4 /* ScanModeViewController.m in Sources */,
 				B362619817E352B900D8B421 /* UIFactory.m in Sources */,
 				B349100717E401A600666F96 /* ThemeImageView.m in Sources */,

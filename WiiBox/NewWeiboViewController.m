@@ -8,6 +8,7 @@
 
 #import "NewWeiboViewController.h"
 #import "UIFactory.h"
+#import "LocationViewController.h"
 
 #define kMenuBtnWidth 23
 #define kMenuBtnHeight 20
@@ -131,6 +132,8 @@
         UIButton *btn = [UIFactory createButton:imgNames[i] highlighted:highlightedNames[i]];
         [btn setImage:highlightedNames[i] forState:UIControlStateSelected];
         btn.frame = CGRectMake(0, offY, kMenuBtnWidth, kMenuBtnHeight);
+        [btn addTarget:self action:@selector(menuBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        btn.tag = i;
         [self.menuBar addSubview:btn];
         [_menuBtns addObject:btn];
     }
@@ -148,6 +151,21 @@
             [self dismissViewControllerAnimated:YES completion:nil];
             
         }];
+    }
+}
+
+- (void)menuBtnAction:(UIButton *)button
+{
+    switch (button.tag) {
+        case 0: //location
+        {
+            LocationViewController *locationViewController = [[LocationViewController alloc] init];
+            [self.navigationController pushViewController:locationViewController animated:YES];
+            [locationViewController release];
+            break;
+        }
+        default:
+            break;
     }
 }
 
