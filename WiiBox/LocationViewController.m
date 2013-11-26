@@ -45,6 +45,7 @@
 - (void)dealloc {
     [_indicatorView release];
     [_tableView release];
+    [_locationManager release];
     [super dealloc];
 }
 
@@ -52,8 +53,8 @@
 - (void)loadLocations
 {
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                @(_location.coordinate.longitude), @"long",
-                                @(_location.coordinate.latitude), @"lat",
+                                [@(_location.coordinate.longitude) stringValue], @"long",
+                                [@(_location.coordinate.latitude) stringValue], @"lat",
                                 nil];
     [self.sinaweibo requestWithURL:@"place/nearby/pois.json" params:dic httpMethod:@"GET" finished:^(id result) {
         NSDictionary *resultDic = result;
@@ -69,15 +70,19 @@
 #pragma mark - Location
 - (void)locate
 {
-    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-    [locationManager startUpdatingLocation];
-    [locationManager autorelease];
+    _locationManager = [[CLLocationManager alloc] init];
+    _locationManager.delegate = self;
+    _locationManager.distanceFilter = kCLDistanceFilterNone;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+//    [_locationManager startUpdatingLocation];
+    
+    _location = [[CLLocation alloc] initWithLatitude:22.9545000 longitude:113.23161700];
+    [self loadLocations];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+    NSLog(@"--------- %@", locations);
     if (_location == nil) {
         _location = [locations lastObject];
         [manager stopUpdatingLocation];
@@ -85,6 +90,27 @@
         [self loadLocations];
     }
 }
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    if (error != nil) {
+        NSLog(@"%@", error);
+        [_locationManager stopUpdatingLocation];
+        
+        UIAlertView *alertDialog = [[UIAlertView alloc] initWithTitle: nil message: @"无法定位" delegate: self cancelButtonTitle: @"确定" otherButtonTitles: nil];
+        [alertDialog show];
+        [alertDialog release];
+    }
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == alertView.cancelButtonIndex) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
