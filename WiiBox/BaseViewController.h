@@ -15,8 +15,7 @@
 {
     NSMutableArray *_requestArray;
 }
-
-@property (assign, nonatomic) BOOL hiddenTabBar;
+@property (assign, nonatomic) BOOL showHomeButton;
 
 - (SinaWeibo *)sinaweibo;
 - (AppDelegate *)appDelegate;

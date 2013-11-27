@@ -21,7 +21,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.hiddenTabBar = YES;
+        self.showHomeButton = YES;
     }
     return self;
 }
@@ -46,13 +46,15 @@
         
         
         //主页键
-        UIButton *homeBtn = [UIFactory createButton:@"tabbar_home.png" highlighted:@"tabbar_home_highlighted.png"];
-        homeBtn.frame = CGRectMake(0, 0, 30, 30);
-        [homeBtn addTarget:self action:@selector(homeClick) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *homeItem = [[UIBarButtonItem alloc] initWithCustomView:homeBtn];
-        
-        self.navigationItem.rightBarButtonItem = homeItem;
-        [homeItem release];
+        if (self.showHomeButton) {
+            UIButton *homeBtn = [UIFactory createButton:@"tabbar_home.png" highlighted:@"tabbar_home_highlighted.png"];
+            homeBtn.frame = CGRectMake(0, 0, 30, 30);
+            [homeBtn addTarget:self action:@selector(homeClick) forControlEvents:UIControlEventTouchUpInside];
+            UIBarButtonItem *homeItem = [[UIBarButtonItem alloc] initWithCustomView:homeBtn];
+            
+            self.navigationItem.rightBarButtonItem = homeItem;
+            [homeItem release];
+        }
     }
     
 }

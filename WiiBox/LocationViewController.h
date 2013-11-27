@@ -11,7 +11,7 @@
 #import "BaseViewController.h"
 #import "MBProgressHUD.h"
 
-@interface LocationViewController : BaseViewController <UITableViewDataSource, CLLocationManagerDelegate, UIAlertViewDelegate>
+@interface LocationViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UIAlertViewDelegate>
 {
     @private
     MBProgressHUD *_indicatorView;

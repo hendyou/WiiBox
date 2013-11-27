@@ -7,6 +7,7 @@
 //
 
 #import "LocationViewController.h"
+#import "UIImageView+WebCache.h"
 
 @interface LocationViewController ()
 
@@ -19,6 +20,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.title = @"附近";
     }
     return self;
 }
@@ -28,7 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    _indicatorView = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    _indicatorView = [[MBProgressHUD showHUDAddedTo:self.view animated:YES] retain];
     _indicatorView.labelText = @"正在定位...";
     _tableView.hidden = YES;
     
@@ -46,6 +48,8 @@
     [_indicatorView release];
     [_tableView release];
     [_locationManager release];
+    [_location release];
+    [_data release];
     [super dealloc];
 }
 
@@ -58,7 +62,7 @@
                                 nil];
     [self.sinaweibo requestWithURL:@"place/nearby/pois.json" params:dic httpMethod:@"GET" finished:^(id result) {
         NSDictionary *resultDic = result;
-        _data = resultDic[@"pois"];
+        _data = [resultDic[@"pois"] retain];
         if (_data.count > 0) {
             [_tableView reloadData];
             _tableView.hidden = NO;
@@ -84,7 +88,7 @@
 {
     NSLog(@"--------- %@", locations);
     if (_location == nil) {
-        _location = [locations lastObject];
+        _location = [[locations lastObject] retain];
         [manager stopUpdatingLocation];
         
         [self loadLocations];
@@ -127,12 +131,22 @@
         [cell autorelease];
     }
     
-    NSDictionary *location = _data[indexPath.row];
-    cell.textLabel.text = location[@"title"];
-    cell.detailTextLabel.text = location[@"address"];
-    
+    NSDictionary *loc = _data[indexPath.row];
+    cell.textLabel.text = loc[@"title"];
+    cell.detailTextLabel.text = loc[@"address"];
+    [cell.imageView setImageWithURL:[NSURL URLWithString:loc[@"icon"]]];
     return cell;
 }
 
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
 
 @end
