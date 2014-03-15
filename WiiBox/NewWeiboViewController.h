@@ -17,4 +17,7 @@
 @property (retain, nonatomic) IBOutlet GCPlaceholderTextView *textView;
 
 @property (retain, nonatomic) IBOutlet UIView *menuBar;
+@property (retain, nonatomic) IBOutlet UIView *locationView;
+@property (retain, nonatomic) IBOutlet UIImageView *locationViewbg;
+@property (retain, nonatomic) IBOutlet UILabel *locationLabel;
 @end

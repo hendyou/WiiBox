@@ -9,6 +9,7 @@
 #import "NewWeiboViewController.h"
 #import "UIFactory.h"
 #import "LocationViewController.h"
+#import "ThemeManager.h"
 
 #define kMenuBtnWidth 23
 #define kMenuBtnHeight 20
@@ -76,6 +77,9 @@
     [_menuBtns release];
     [_menuBar release];
     [_textView release];
+    [_locationView release];
+    [_locationViewbg release];
+    [_locationLabel release];
     [super dealloc];
 }
 
@@ -114,6 +118,11 @@
     
     //TextView PlaceHolder
     _textView.placeholder = @"分享新鲜事...";
+    
+    //Location Views
+    UIImage *locationBg = _locationViewbg.image;
+    _locationViewbg.image = [locationBg resizableImageWithCapInsets:UIEdgeInsetsMake(9, 31, 9, 15)];
+    
 }
 
 - (void)initMenuBar
@@ -166,6 +175,10 @@
         {
             LocationViewController *locationViewController = [[LocationViewController alloc] init];
             locationViewController.showHomeButton = NO;
+            locationViewController.LocationSelectedBlock = ^(NSDictionary *location) {
+//                NSLog(@"%@", location);
+                
+            };
             [self.navigationController pushViewController:locationViewController animated:YES];
             [locationViewController release];
             break;
@@ -202,12 +215,14 @@
         [UIView animateWithDuration:animDuration animations:^{
             self.menuBar.bottom = self.view.height - (isPortrait ? frame.size.height : frame.size.width);
             self.textView.height = self.menuBar.top;
+            self.locationView.bottom = self.menuBar.top;
         }];
     } else if ([notificationName isEqualToString:UIKeyboardWillHideNotification]) {
         _isKeyboardHidden = YES;
         [UIView animateWithDuration:animDuration animations:^{
             self.menuBar.bottom = self.view.height;
             self.textView.height = self.menuBar.top;
+            self.locationView.bottom = self.menuBar.top;
         }];
     }
 }

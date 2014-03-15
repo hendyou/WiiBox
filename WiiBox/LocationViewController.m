@@ -21,6 +21,7 @@
     if (self) {
         // Custom initialization
         self.title = @"附近";
+        NSLog(@"------------ LocationViewController init");
     }
     return self;
 }
@@ -86,7 +87,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    NSLog(@"--------- %@", locations);
+//    NSLog(@"--------- %@", locations);
     if (_location == nil) {
         _location = [[locations lastObject] retain];
         [manager stopUpdatingLocation];
@@ -141,7 +142,15 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (self.locationSelectedBlock) {
+        NSDictionary *loc = _data[indexPath.row];
+        self.locationSelectedBlock(loc);
+        Block_release(self.locationSelectedBlock);
+        self.locationSelectedBlock = nil;
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

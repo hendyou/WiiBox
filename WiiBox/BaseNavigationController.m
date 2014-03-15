@@ -21,7 +21,7 @@
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeChangedNotification:) name:kThemeDidChangedNofication object:nil];
         
-        self.delegate = self;
+//        self.delegate = self;
     }
     return self;
 }

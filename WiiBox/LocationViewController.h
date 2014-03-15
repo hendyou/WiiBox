@@ -11,6 +11,8 @@
 #import "BaseViewController.h"
 #import "MBProgressHUD.h"
 
+typedef void(^LocationSelectedBlock) (NSDictionary *);
+
 @interface LocationViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UIAlertViewDelegate>
 {
     @private
@@ -22,4 +24,6 @@
 }
 
 @property (retain, nonatomic) IBOutlet UITableView *tableView;
+@property (copy, nonatomic) LocationSelectedBlock locationSelectedBlock;
+
 @end
