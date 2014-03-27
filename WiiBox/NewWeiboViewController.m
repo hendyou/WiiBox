@@ -121,8 +121,9 @@
     
     //Location Views
     UIImage *locationBg = _locationViewbg.image;
-    _locationViewbg.image = [locationBg resizableImageWithCapInsets:UIEdgeInsetsMake(9, 31, 9, 15)];
-    
+    UIEdgeInsets insets = UIEdgeInsetsMake(9, 31, 9, 15);
+    _locationViewbg.image = [locationBg resizableImageWithCapInsets:insets];
+    _locationLabel.left = _locationViewbg.left + insets.left;
 }
 
 - (void)initMenuBar
@@ -177,7 +178,14 @@
             locationViewController.showHomeButton = NO;
             locationViewController.LocationSelectedBlock = ^(NSDictionary *location) {
 //                NSLog(@"%@", location);
-                
+                NSString *title = location[@"title"];
+                if (!NSStringIsEmpty(title)) {
+                    _locationLabel.text = title;
+                    [_locationLabel sizeToFit];
+                    _locationViewbg.width = _locationLabel.right - _locationViewbg.left + _locationViewbg.image.capInsets.right;
+                    _locationView.width = _locationViewbg.left - _locationView.left;
+                    _locationView.hidden = NO;
+                }
             };
             [self.navigationController pushViewController:locationViewController animated:YES];
             [locationViewController release];
